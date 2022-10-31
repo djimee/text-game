@@ -1,17 +1,22 @@
 package org.example;
 
-public class Player {
-    public int[] playerCoordinates = new int[2];
+public class Player extends Entity{
 
-    public Player(int[] playerCoordinates) {
-        this.playerCoordinates = playerCoordinates;
-    }
-
-    public int[] getPlayerCoordinates() {
-        return playerCoordinates;
-    }
-
-    public void setPlayerCoordinates(int[] playerCoordinates) {
-        this.playerCoordinates = playerCoordinates;
+    public void movePlayer(String direction) {
+        int[] playerCoordinates = getCoordinates();
+        switch(direction) {
+            case "l":
+                playerCoordinates[1] -= 1;
+                break;
+            case "r":
+                playerCoordinates[1] += 1;
+                break;
+            case "u":
+                playerCoordinates[0] -= 1;
+                break;
+            case "d":
+                playerCoordinates[0] += 1;
+                break;
+        }
     }
 }

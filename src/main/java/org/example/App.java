@@ -2,10 +2,13 @@ package org.example;
 
 import java.util.Scanner;
 
-
+/**
+ * Hello world!
+ *
+ */
 public class App {
-    public static int SIZE = 5;
-    public static int NO_OF_MONSTERS = 2;
+    public static int SIZE = 2;
+    public static int NO_OF_MONSTERS = 5;
     public static int numOfMoves = 0;
 
     public static void main( String[] args ) {
@@ -18,8 +21,8 @@ public class App {
 
         for(int i = 0; i < NO_OF_MONSTERS; i++) {
             monster[i] = new Monster();
-            while(monster[i].getMonsterCoordinates() == map.getPlayerCoordinates() || 
-                    monster[i].getMonsterCoordinates() == map.getTreasureCoordinates())
+            while(monster[i].getMonsterCoordinates() == map.getPlayerCoordinates()
+                    || monster[i].getMonsterCoordinates() == map.getTreasureCoordinates())
                 monster[i] = new Monster();
         }
 
@@ -28,6 +31,8 @@ public class App {
             System.out.println("Please enter the direction 'l r u d': ");
             String direction = (s.nextLine()).toLowerCase();
             s = new Scanner(System.in);
+
+
 
             if (map.checkValidMovement(direction)) {
                 map.movePlayer(direction);
@@ -40,12 +45,12 @@ public class App {
                 }
                 hasWon = map.isTreasureFound();
             }
-            numOfMoves += 1;
+            numOfMoves++;
         }
 
         if(hasWon) {
             map.displayGrid(true);
-            System.out.println("My G, You have found the treasure in " + numOfMoves + " moves... SIIUUUUUU!!!\n");
+            System.out.println("My G, You have found the treasure in " + numOfMoves + " move(s)... SIIUUUUUU!!!\n");
             map.displayGrid(monster);
         }
 
@@ -60,12 +65,27 @@ public class App {
         );
     }
 
-    public static boolean landedOnMonster(Monster m, Map map) {
-        int[] monsterCoordinates = m.getMonsterCoordinates();
-        int[] playerCoordinates =  map.getPlayerCoordinates();
-        if (monsterCoordinates[0] == playerCoordinates[0] && monsterCoordinates[1] == playerCoordinates[1]) {
-            return true;
+    public static int landedOn(Player p, Entity e) {
+        int[] entityCoordinates = e.getCoordinates();
+        int[] playerCoordinates =  p.getCoordinates();
+        if (entityCoordinates[0] == playerCoordinates[0] && entityCoordinates[1] == entityCoordinates[1]) {
+            if (e instanceof Monster) {
+                return -1;
+            }
+            else if (e instanceof Treasure) {
+                return 1;
+            }
         }
-        return false;
+        return 0;
+    }
+
+    /**
+     * Gets displacement to the treasure
+     * @returns double type displacement
+     */
+    public double getDistanceToEntity(Player p, Entity t) {
+        int y = p.getCoordinates()[0] - t.getCoordinates()[0];
+        int x = p.getCoordinates()[1] - t.getCoordinates()[1];
+        return Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)));
     }
 }
