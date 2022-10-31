@@ -1,7 +1,14 @@
 package org.example;
 
-public class Player extends Entity{
+public class Player extends Entity {
 
+    boolean active = true;
+    int number;
+
+    public Player(int number) {
+        this.number = number;
+    }
+    
     public void movePlayer(String direction) {
         int[] playerCoordinates = getCoordinates();
         switch(direction) {

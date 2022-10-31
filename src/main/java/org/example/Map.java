@@ -3,22 +3,44 @@ package org.example;
 public class Map {
 
     private int SIZE;
+    private int[][] grid = new int[SIZE][SIZE];
 
     public Map(int size) {
         this.SIZE = size;
-        this.playerCoordinates = Utils.getRandomCoordinates();
+        initialiseGrid();
 
-        int[] temp = Utils.getRandomCoordinates();
+//        this.playerCoordinates = Utils.getRandomCoordinates();
 
-        // generate new coordinates until they stop overlapping
-        while(temp == this.playerCoordinates) {
-            temp = Utils.getRandomCoordinates();
-        }
-        this.treasureCoordinates = temp;
+//        int[] temp = Utils.getRandomCoordinates();
+//
+//        // generate new coordinates until they stop overlapping
+//        while(temp == this.playerCoordinates) {
+//            temp = Utils.getRandomCoordinates();
+//        }
+//        this.treasureCoordinates = temp;
     }
 
-    public boolean checkValidMovement(String direction) {
+    public int[][] getGrid() {
+        return this.grid;
+    }
+
+    public void setGrid(int[][] grid) {
+        this.grid = grid;
+    }
+
+    public void initialiseGrid() {
+        int[][] grid = new int[SIZE][SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                grid[i][j] = 0;
+            }
+        }
+        setGrid(grid);
+    }
+
+    public boolean checkValidMovement(Player player, String direction) {
         boolean check = false;
+        int[] playerCoordinates = player.getCoordinates();
 
         switch(direction) {
             case "l":
@@ -52,53 +74,23 @@ public class Map {
         return check;
     }
 
-
-
-
-    public void displayGrid(boolean treasure) {
-        int[] playerCoordinates = this.getPlayerCoordinates();
-
-        if (!treasure) {
-            for(int y = 0; y < SIZE; y++) {
-                for(int x = 0; x < SIZE; x++) {
-                    if(y == playerCoordinates[0] && x == playerCoordinates[1])
-                        System.out.print("X ");
-                    else
-                        System.out.print("O ");
-                }
-                System.out.print("\n");
-            }
-        }
-        else {
-            for(int y = 0; y < SIZE; y++) {
-                for(int x = 0; x < SIZE; x++) {
-                    if(y == playerCoordinates[0] && x == playerCoordinates[1] && treasure)
-                        System.out.print("W ");
-                    else if(y == playerCoordinates[0] && x == playerCoordinates[1])
-                        System.out.print("X ");
-                    else
-                        System.out.print("O ");
-                }
-                System.out.print("\n");
+    public void displayGrid() {
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
+                int curr = this.grid[y][x];
+//                if (curr == 0) {
+//                    System.out.print("O ");
+//                } else if (curr == 1) {
+//                    System.out.print("X ");
+//                } else if (curr == 2) {
+//                    System.out.print("T ");
+//                } else if (curr == -1) {
+//                    System.out.print("M ");
+//                }
+                System.out.println(this.grid[y][x]);
             }
         }
     }
-
-    public void displayGrid(Monster[] monster) {
-        for(int y = 0; y < SIZE; y++) {
-            for(int x = 0; x < SIZE; x++) {
-                if(y == treasureCoordinates[0] && x == treasureCoordinates[1])
-                    System.out.print("W ");
-                else if(checkMonster(monster, y, x)) {
-                    System.out.print("M ");
-                }
-                else
-                    System.out.print("O ");
-            }
-            System.out.print("\n");
-        }
-    }
-
     public boolean checkMonster(Monster[] monster, int y, int x) {
         for(Monster m : monster) {
             int[] temp = m.getCoordinates();
@@ -108,3 +100,49 @@ public class Map {
         return false;
     }
 }
+
+//    public void displayGrid(Player players, boolean treasure) {
+//        int[] playerCoordinates = this.getPlayerCoordinates();
+//
+//        if (!treasure) {
+//            for (int i = 0; i)
+//            for(int y = 0; y < SIZE; y++) {
+//                for(int x = 0; x < SIZE; x++) {
+//                    if(y == playerCoordinates[0] && x == playerCoordinates[1])
+//                        System.out.print("X ");
+//                    else
+//                        System.out.print("O ");
+//                }
+//                System.out.print("\n");
+//            }
+//        }
+//        else {
+//            for(int y = 0; y < SIZE; y++) {
+//                for(int x = 0; x < SIZE; x++) {
+//                    if(y == playerCoordinates[0] && x == playerCoordinates[1] && treasure)
+//                        System.out.print("W ");
+//                    else if(y == playerCoordinates[0] && x == playerCoordinates[1])
+//                        System.out.print("X ");
+//                    else
+//                        System.out.print("O ");
+//                }
+//                System.out.print("\n");
+//            }
+//        }
+//    }
+
+//    public void displayGrid(Monster[] monster) {
+//        for(int y = 0; y < SIZE; y++) {
+//            for(int x = 0; x < SIZE; x++) {
+//                if(y == treasureCoordinates[0] && x == treasureCoordinates[1])
+//                    System.out.print("W ");
+//                else if(checkMonster(monster, y, x)) {
+//                    System.out.print("M ");
+//                }
+//                else
+//                    System.out.print("O ");
+//            }
+//            System.out.print("\n");
+//        }
+//    }
+
