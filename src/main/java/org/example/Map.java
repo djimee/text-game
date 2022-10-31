@@ -1,5 +1,7 @@
 package org.example;
 
+import static java.util.Arrays.fill;
+
 public class Map {
 
     private int SIZE;
@@ -30,10 +32,8 @@ public class Map {
 
     public void initialiseGrid() {
         int[][] grid = new int[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                grid[i][j] = 0;
-            }
+        for (int[] row : grid) {
+            fill(row, 0);
         }
         setGrid(grid);
     }
@@ -75,20 +75,22 @@ public class Map {
     }
 
     public void displayGrid() {
+        int[][] grid = getGrid();
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 int curr = this.grid[y][x];
-//                if (curr == 0) {
-//                    System.out.print("O ");
-//                } else if (curr == 1) {
-//                    System.out.print("X ");
-//                } else if (curr == 2) {
-//                    System.out.print("T ");
-//                } else if (curr == -1) {
-//                    System.out.print("M ");
-//                }
-                System.out.println(this.grid[y][x]);
+                if (curr == 0) {
+                    System.out.print("O ");
+                } else if (curr == 1) {
+                    System.out.print("X ");
+                } else if (curr == 2) {
+                    System.out.print("T ");
+                } else if (curr == -1) {
+                    System.out.print("M ");
+                }
+//                System.out.print(grid[y][x]);
             }
+            System.out.println("");
         }
     }
     public boolean checkMonster(Monster[] monster, int y, int x) {
