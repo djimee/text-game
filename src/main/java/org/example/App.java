@@ -7,8 +7,10 @@ import java.util.Scanner;
  *
  */
 public class App {
-    public static int SIZE = 2;
-    public static int NO_OF_MONSTERS = 5;
+    public static int SIZE = 5;
+    public static int numMonsters = 2;
+    public static int numPlayers = 2;
+    public static int numTreasures = 1;
     public static int numOfMoves = 0;
 
     public static void main( String[] args ) {
@@ -17,52 +19,89 @@ public class App {
         boolean hasWon = false;
         Scanner s = new Scanner(System.in);
 
-        Monster[] monster = new Monster[NO_OF_MONSTERS];
+        Player[] players = new Player[numPlayers];
+        Monster[] monster = new Monster[numMonsters];
 
-        for(int i = 0; i < NO_OF_MONSTERS; i++) {
-            monster[i] = new Monster();
-            while(monster[i].getMonsterCoordinates() == map.getPlayerCoordinates()
-                    || monster[i].getMonsterCoordinates() == map.getTreasureCoordinates())
-                monster[i] = new Monster();
-        }
+        int[][] mapGrid = map.getGrid();
 
-        while (playerAlive && !hasWon) {
-            map.displayGrid(false);
-            System.out.println("Please enter the direction 'l r u d': ");
-            String direction = (s.nextLine()).toLowerCase();
-            s = new Scanner(System.in);
+//        map.displayGrid();
 
-
-
-            if (map.checkValidMovement(direction)) {
-                map.movePlayer(direction);
-                System.out.println("Treasure is " + map.getDistanceToTreasure() + "m away from you.\n");
-                for(Monster m : monster) {
-                    if(landedOnMonster(m, map)) {
-                        playerAlive = false;
-                        break;
-                    }
-                }
-                hasWon = map.isTreasureFound();
+        // refactor
+        int monstersAdded = 0;
+        while (monstersAdded < numMonsters) {
+            monster[monstersAdded] = new Monster();
+            int[] randomCoordinates = Utils.getRandomCoordinates();
+            int x = randomCoordinates[1];
+            int y = randomCoordinates[0];
+            if (mapGrid[y][x] == 0) {
+                mapGrid[y][x] = -1;
+                monstersAdded++;
             }
-            numOfMoves++;
         }
 
-        if(hasWon) {
-            map.displayGrid(true);
-            System.out.println("My G, You have found the treasure in " + numOfMoves + " move(s)... SIIUUUUUU!!!\n");
-            map.displayGrid(monster);
+        int playersAdded = 0;
+        while (playersAdded < numPlayers) {
+            monster[playersAdded] = new Monster();
+            int[] randomCoordinates = Utils.getRandomCoordinates();
+            int x = randomCoordinates[1];
+            int y = randomCoordinates[0];
+            if (mapGrid[y][x] == 0) {
+                mapGrid[y][x] = 1;
+                playersAdded++;
+            }
         }
 
-        else {
-            map.displayGrid(false);
-            System.out.println("My G, DEATH AWAITS YE!!!\n");
-            map.displayGrid(monster);
+        int treasuresAdded = 0;
+        while (treasuresAdded < numTreasures) {
+            monster[treasuresAdded] = new Monster();
+            int[] randomCoordinates = Utils.getRandomCoordinates();
+            int x = randomCoordinates[1];
+            int y = randomCoordinates[0];
+            if (mapGrid[y][x] == 0) {
+                mapGrid[y][x] = 2;
+                treasuresAdded++;
+            }
         }
 
-        System.out.println("\nM - monster"
-                + "\nW - win"
-        );
+        map.displayGrid();
+
+        int currTurn = 1;
+
+//        while (playerAlive && !hasWon) {
+////            map.displayGrid(false);
+//            System.out.println("Please enter the direction 'l r u d': ");
+//            String direction = (s.nextLine()).toLowerCase();
+//            s = new Scanner(System.in);
+//
+//            if (player.checkValidMovement(direction)) {
+//                map.movePlayer(direction);
+//                System.out.println("Treasure is " + map.getDistanceToTreasure() + "m away from you.\n");
+//                for(Monster m : monster) {
+//                    if(landedOnMonster(m, map)) {
+//                        playerAlive = false;
+//                        break;
+//                    }
+//                }
+//                hasWon = map.isTreasureFound();
+//            }
+//            numOfMoves++;
+//        }
+//
+//        if(hasWon) {
+//            map.displayGrid(true);
+//            System.out.println("My G, You have found the treasure in " + numOfMoves + " move(s)... SIIUUUUUU!!!\n");
+//            map.displayGrid(monster);
+//        }
+//
+//        else {
+//            map.displayGrid(false);
+//            System.out.println("My G, DEATH AWAITS YE!!!\n");
+//            map.displayGrid(monster);
+//        }
+//
+//        System.out.println("\nM - monster"
+//                + "\nW - win"
+//        );
     }
 
     public static int landedOn(Player p, Entity e) {
