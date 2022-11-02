@@ -88,7 +88,6 @@ public class Map {
                 } else if (curr == -1) {
                     System.out.print("M ");
                 }
-//                System.out.print(grid[y][x]);
             }
             System.out.println("");
         }

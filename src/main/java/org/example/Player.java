@@ -8,7 +8,11 @@ public class Player extends Entity {
     public Player(int number) {
         this.number = number;
     }
-    
+
+    public int getNumber() {
+        return number;
+    }
+
     public void movePlayer(String direction) {
         int[] playerCoordinates = getCoordinates();
         switch(direction) {
