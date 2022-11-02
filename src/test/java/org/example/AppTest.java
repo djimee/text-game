@@ -14,5 +14,10 @@ public class AppTest {
     public void shouldAnswerWithFalse() {
         assertTrue(false);
     }
+
+    @Test
+    public void shouldAnswerWithFalseToo() {
+        assertTrue(false);
+    }
     //
 }
