@@ -110,6 +110,7 @@ public class Map {
         if (treasureCoordinates[0] == playerCoordinates[0] && treasureCoordinates[1] == playerCoordinates[1]) {
             return true;
         }
+
         return false;
     }
 
