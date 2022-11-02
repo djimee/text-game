@@ -12,12 +12,12 @@ public class AppTest {
 
     @Test
     public void shouldAnswerWithFalse() {
-        assertTrue(false);
+        assertFalse(false);
     }
 
     @Test
     public void shouldAnswerWithFalseToo() {
-        assertTrue(false);
+        assertFalse(false);
     }
     //
 }
