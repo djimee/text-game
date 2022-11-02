@@ -6,6 +6,7 @@ public abstract class Entity {
     private boolean active = false;
 
     private int[] coordinates = new int[2];
+
     public int[] getCoordinates() {
         return this.coordinates;
     }
