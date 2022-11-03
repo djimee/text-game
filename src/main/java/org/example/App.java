@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  */
 public class App {
-    public static int SIZE = 5;
+    public static int SIZE = 2;
     public static int numMonsters = 1;
     public static int numPlayers = 1;
     public static int numTreasures = 1;
@@ -27,6 +27,14 @@ public class App {
         Monster monster = c.getMonster();
         Treasure treasure = c.getTreasure();
 
+        System.out.print("Player, what do you wish to be called? ");
+        player.setName(s.nextLine());
+
+        System.out.print("Monster, what do you wish to be called? ");
+        monster.setName(s.nextLine());
+
+        System.out.println("\n===========================================================");
+
         double treasureLastDist, playerLastDist;
 
         while (player.isActive() && !player.hasWon()) {
@@ -38,7 +46,7 @@ public class App {
 
             while (!playerHasMoved) {
 
-                System.out.print("Player please enter the direction 'l r u d': ");
+                System.out.print(player.getName() + ", please enter the direction you wish to travel... 'l r u d': ");
                 String direction = (s.nextLine()).toLowerCase();
 
                 if (c.checkValidMovement(player, direction)) {
@@ -49,28 +57,33 @@ public class App {
 
                     if (c.landedOn(player, monster) == -1) {
                         player.setActive(false);
-                    } else if (c.landedOn(player, treasure) == 1) {
+                    } else if (c.landedOn(player, treasure) == 2) {
                         player.setHasWon(true);
                     }
 
-                    if (c.landedOn(player, monster) == -1)
-                        player.setActive(false);
-                    else if (c.landedOn(player, treasure) == 1)
-                        player.setHasWon(true);
-
                     playerHasMoved = true;
                 }
+            }
+
+            if (player.hasWon()) {
+                System.out.println("My G, You have found the treasure in " +
+                        playerNumMoves + " move(s)... SIIUUUUUU!!!\n");
+                break;
+            } else if (!player.isActive()) {
+                System.out.println("MY G, DEATH AWAITS YE!!! YOU HAVE BEEN FOUND IN " + 
+                        monsterNumMoves + " MOVE(S)!!!\n");
+                break;
             }
 
             map.displayGrid();
 
             boolean monsterHasMoved = false;
             playerLastDist = c.getDistanceToEntity(player, monster);
-            System.out.println("The player is currently " + playerLastDist + "m away from you!!");
+            System.out.println(player.getName() + " is currently " + playerLastDist + "m away from you!!");
 
             while (!monsterHasMoved) {
 
-                System.out.print("Monster please enter the direction 'l r u d': ");
+                System.out.print(monster.getName() + ", please enter the direction you wish to travel... 'l r u d': ");
                 String direction = (s.nextLine()).toLowerCase();
 
                 if (c.checkValidMovement(monster, direction)) {
@@ -86,12 +99,13 @@ public class App {
                     monsterHasMoved = true;
                 }
             }
+            
+            if (!player.isActive()) {
+                System.out.println("MY G, DEATH AWAITS YE!!! YOU HAVE BEEN FOUND IN " + monsterNumMoves + " MOVE(S)!!!\n");
+                break;
+            }
         }
 
-        if (player.hasWon())
-           System.out.println("My G, You have found the treasure in " + playerNumMoves + " move(s)... SIIUUUUUU!!!\n");
-        else
-           System.out.println("MY G, DEATH AWAITS YE!!! YOU HAVE BEEN FOUND IN " + monsterNumMoves + " MOVE(S)!!!\n");
 
         map.displayGridEnd();
     }

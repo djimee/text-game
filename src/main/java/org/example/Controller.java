@@ -163,4 +163,8 @@ public class Controller {
         m.setGrid(mapGrid);
         e.setCoordinates(new int[] {entityCoordinateY, entityCoordinateX});
     }
+
+    public void initialiseNames() {
+
+    }
 }
