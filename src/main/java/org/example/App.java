@@ -19,49 +19,13 @@ public class App {
         boolean hasWon = false;
         Scanner s = new Scanner(System.in);
 
-        Player[] players = new Player[numPlayers];
-        Monster[] monster = new Monster[numMonsters];
+        Controller c = Controller.getController();
 
-        int[][] mapGrid = map.getGrid();
+        c.addEntityToMap(new Player(0), map);
+        c.addEntityToMap(new Treasure(), map);
+        c.addEntityToMap(new Monster(), map);
 
 //        map.displayGrid();
-
-        // refactor
-        int monstersAdded = 0;
-        while (monstersAdded < numMonsters) {
-            monster[monstersAdded] = new Monster();
-            int[] randomCoordinates = Utils.getRandomCoordinates();
-            int x = randomCoordinates[1];
-            int y = randomCoordinates[0];
-            if (mapGrid[y][x] == 0) {
-                mapGrid[y][x] = -1;
-                monstersAdded++;
-            }
-        }
-
-        int playersAdded = 0;
-        while (playersAdded < numPlayers) {
-            monster[playersAdded] = new Monster();
-            int[] randomCoordinates = Utils.getRandomCoordinates();
-            int x = randomCoordinates[1];
-            int y = randomCoordinates[0];
-            if (mapGrid[y][x] == 0) {
-                mapGrid[y][x] = 1;
-                playersAdded++;
-            }
-        }
-
-        int treasuresAdded = 0;
-        while (treasuresAdded < numTreasures) {
-            monster[treasuresAdded] = new Monster();
-            int[] randomCoordinates = Utils.getRandomCoordinates();
-            int x = randomCoordinates[1];
-            int y = randomCoordinates[0];
-            if (mapGrid[y][x] == 0) {
-                mapGrid[y][x] = 2;
-                treasuresAdded++;
-            }
-        }
 
         map.displayGrid();
 
