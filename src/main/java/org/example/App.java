@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  */
 public class App {
-    public static int SIZE = 2;
+    public static int SIZE = 5;
     public static int numMonsters = 1;
     public static int numPlayers = 1;
     public static int numTreasures = 1;
@@ -99,7 +99,7 @@ public class App {
                     monsterHasMoved = true;
                 }
             }
-            
+
             if (!player.isActive()) {
                 System.out.println("MY G, DEATH AWAITS YE!!! YOU HAVE BEEN FOUND IN " + monsterNumMoves + " MOVE(S)!!!\n");
                 break;
