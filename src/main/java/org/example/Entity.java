@@ -3,7 +3,7 @@ package org.example;
 public abstract class Entity {
 
     private String name = null;
-    private boolean active = false;
+    private boolean active = true;
 
     private int[] coordinates = new int[2];
 

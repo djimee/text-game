@@ -25,6 +25,10 @@ public class App {
         c.addEntityToMap(new Treasure(), map);
         c.addEntityToMap(new Monster(), map);
 
+        Player player = c.getPlayer();
+        Monster monster = c.getMonster();
+        Treasure treasure = c.getTreasure();
+
 //        map.displayGrid();
 
 //<<<<<<< HEAD
@@ -72,30 +76,54 @@ public class App {
 //=======
 //>>>>>>> MVP-3
 
-        map.displayGrid();
-
-        int currTurn = 1;
-
-
-        while (playerAlive && !hasWon) {
+        while (player.isActive() && !player.hasWon()) {
             map.displayGrid();
             System.out.println("Player please enter the direction 'l r u d': ");
             String direction = (s.nextLine()).toLowerCase();
             s = new Scanner(System.in);
 
-            if (c.checkValidMovement(player, direction)) {
-                player.movePlayer(direction);
-                System.out.println("Treasure is "  + "m away from you.\n");
-                if(c.landedOn(player, monster) == -1) {
-                    playerAlive = false;
-                    break;
-                } else if (c.landedOn(player, treasure) == 1) {
-                    hasWon = true;
+            boolean playerHasMoved = false;
+
+            while (!playerHasMoved) {
+                if (c.checkValidMovement(player, direction)) {
+                    player.movePlayer(direction);
+                    System.out.println("Treasure is " + c.getDistanceToEntity(player, treasure) + "m away from you.\n");
+                    if (c.landedOn(player, monster) == -1) {
+                        player.setActive(false);
+                        playerHasMoved = true;
+                    } else if (c.landedOn(player, treasure) == 1) {
+                        player.setHasWon(true);
+                        System.out.println("My G, You have found the treasure in move(s)... SIIUUUUUU!!!\n");
+                        playerHasMoved = true;
+                    }
+                    playerHasMoved = true;
                 }
             }
-            }
 
+            map.displayGrid();
+
+            boolean monsterHasMoved = false;
+            System.out.println("Monster please enter the direction 'l r u d': ");
+
+            while (!monsterHasMoved) {
+                if (c.checkValidMovement(monster, direction)) {
+                    direction = (s.nextLine()).toLowerCase();
+                    s = new Scanner(System.in);
+                    monster.moveMonster(direction);
+                    System.out.println("Player is " + c.getDistanceToEntity(player, monster) + "m away from you.\n");
+                    if (c.landedOn(player, monster) == -1) {
+                        monsterHasMoved = true;
+                        player.setActive(false);
+                    }
+                    monsterHasMoved = true;
+                }
+            }
         }
+        map.displayGridEnd();
+    }
+}
+
+
 
 //        while (playerAlive && !hasWon) {
 ////            map.displayGrid(false);
@@ -132,4 +160,3 @@ public class App {
 //        System.out.println("\nM - monster"
 //                + "\nW - win"
 //        );
-}

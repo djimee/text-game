@@ -2,6 +2,8 @@ package org.example;
 
 public class Player extends Entity {
 
+    private boolean hasWon = false;
+
     public Player() {};
 
     public void movePlayer(String direction) {
@@ -20,5 +22,13 @@ public class Player extends Entity {
                 playerCoordinates[0] += 1;
                 break;
         }
+    }
+
+    public boolean hasWon() {
+        return hasWon;
+    }
+
+    public void setHasWon(boolean hasWon) {
+        this.hasWon = hasWon;
     }
 }

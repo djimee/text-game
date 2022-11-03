@@ -72,28 +72,40 @@ public class Controller {
         }
     }
 
-    public boolean checkValidMovement(Player player, String direction) {
+    public Player getPlayer() {
+        return players[0];
+    }
+
+    public Monster getMonster() {
+        return monsters[0];
+    }
+
+    public Treasure getTreasure() {
+        return treasures[0];
+    }
+
+    public boolean checkValidMovement(Entity entity, String direction) {
         boolean check = false;
-        int[] playerCoordinates = player.getCoordinates();
+        int[] entityCoordinates = entity.getCoordinates();
 
         switch(direction) {
             case "l":
-                check = (playerCoordinates[1] - 1) >= 0;
+                check = (entityCoordinates[1] - 1) >= 0;
                 if(!check)
                     System.out.println("You cannot move further left. You are at the edge.\n");
                 break;
             case "r":
-                check = (playerCoordinates[1] + 1) < App.SIZE;
+                check = (entityCoordinates[1] + 1) < App.SIZE;
                 if(!check)
                     System.out.println("You cannot move further right. You are at the edge.\n");
                 break;
             case "u":
-                check = (playerCoordinates[0] - 1) >= 0;
+                check = (entityCoordinates[0] - 1) >= 0;
                 if(!check)
                     System.out.println("You cannot move further up. You are at the edge.\n");
                 break;
             case "d":
-                check = (playerCoordinates[0] + 1) < App.SIZE;
+                check = (entityCoordinates[0] + 1) < App.SIZE;
                 if(!check)
                     System.out.println("You cannot move further down. You are at the edge.\n");
                 break;
@@ -111,8 +123,8 @@ public class Controller {
     
     public static int landedOn(Player p, Entity e) {
         int[] entityCoordinates = e.getCoordinates();
-        int[] playerCoordinates =  p.getCoordinates();
-        if (entityCoordinates[0] == playerCoordinates[0] && entityCoordinates[1] == entityCoordinates[1]) {
+        int[] playerCoordinates = p.getCoordinates();
+        if (entityCoordinates[0] == playerCoordinates[0] && entityCoordinates[1] == playerCoordinates[1]) {
             if (e instanceof Monster) {
                 return -1;
             }
