@@ -14,12 +14,12 @@ public class App {
     public static int numOfMoves = 0;
 
     public static void main( String[] args ) {
+        Scanner s = new Scanner(System.in);
+        Controller c = Controller.getController();
         Map map = new Map(SIZE);
+
         boolean playerAlive = true;
         boolean hasWon = false;
-        Scanner s = new Scanner(System.in);
-
-        Controller c = Controller.getController();
 
         c.addEntityToMap(new Player(), map);
         c.addEntityToMap(new Treasure(), map);
@@ -29,62 +29,14 @@ public class App {
         Monster monster = c.getMonster();
         Treasure treasure = c.getTreasure();
 
-//        map.displayGrid();
-
-//<<<<<<< HEAD
-//        // refactor
-//        Player player = new Player();
-//        int[] randomCoordinates = Utils.getRandomCoordinates();
-//        int x = randomCoordinates[1];
-//        int y = randomCoordinates[0];
-//        if (mapGrid[y][x] == 0) {
-//            mapGrid[y][x] = -1;
-//            player.setCoordinates(new int[]{x, y});
-//        }
-//
-//        Monster monster = new Monster();
-//        randomCoordinates = Utils.getRandomCoordinates();
-//        x = randomCoordinates[1];
-//        y = randomCoordinates[0];
-//        if (mapGrid[y][x] == 0) {
-//            mapGrid[y][x] = 1;
-//            monster.setCoordinates(new int[]{x, y});
-//        }
-//
-//        Treasure treasure = new Treasure();
-//        randomCoordinates = Utils.getRandomCoordinates();
-//        x = randomCoordinates[1];
-//        y = randomCoordinates[0];
-//        if (mapGrid[y][x] == 0) {
-//            mapGrid[y][x] = 1;
-//            treasure.setCoordinates(new int[]{x, y});
-//        }
-//
-////        int treasuresAdded = 0;
-////        while (treasuresAdded < numTreasures) {
-////            treasures[treasuresAdded] = new Treasure();
-////            randomCoordinates = Utils.getRandomCoordinates();
-////            x = randomCoordinates[1];
-////            y = randomCoordinates[0];
-////            if (mapGrid[y][x] == 0) {
-////                mapGrid[y][x] = 2;
-////                treasures[treasuresAdded].setCoordinates(new int[]{x, y});
-////                treasuresAdded++;
-////            }
-////        }
-//
-//=======
-//>>>>>>> MVP-3
-
         while (player.isActive() && !player.hasWon()) {
             map.displayGrid();
-            System.out.println("Player please enter the direction 'l r u d': ");
-            String direction = (s.nextLine()).toLowerCase();
-            s = new Scanner(System.in);
 
             boolean playerHasMoved = false;
+            System.out.println("Player please enter the direction 'l r u d': ");
 
             while (!playerHasMoved) {
+                String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(player, direction)) {
                     c.moveEntity(player, map, direction);
                     System.out.println("Treasure is " + c.getDistanceToEntity(player, treasure) + "m away from you.\n");
@@ -106,9 +58,8 @@ public class App {
             System.out.println("Monster please enter the direction 'l r u d': ");
 
             while (!monsterHasMoved) {
+                String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(monster, direction)) {
-                    direction = (s.nextLine()).toLowerCase();
-                    s = new Scanner(System.in);
                     c.moveEntity(player, map, direction);
                     System.out.println("Player is " + c.getDistanceToEntity(player, monster) + "m away from you.\n");
                     if (c.landedOn(player, monster) == -1) {
