@@ -115,7 +115,6 @@ public class Controller {
         }
         return check;
     }
-
     
     public int landedOn(Player p, Entity e) {
         int[] entityCoordinates = e.getCoordinates();
