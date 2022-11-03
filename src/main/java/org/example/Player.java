@@ -2,9 +2,6 @@ package org.example;
 
 public class Player extends Entity {
 
-    boolean active = true;
-    int number;
-
     public Player() {};
 
     public void movePlayer(String direction) {

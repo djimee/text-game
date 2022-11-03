@@ -38,43 +38,21 @@ public class Map {
         setGrid(grid);
     }
 
-    public boolean checkValidMovement(Entity entity, String direction) {
-        boolean check = false;
-        int[] entityCoordinates = entity.getCoordinates();
-
-        switch(direction) {
-            case "l":
-                check = (entityCoordinates[1] - 1) >= 0;
-                if(!check)
-                    System.out.println("You cannot move further left. You are at the edge.\n");
-                break;
-            case "r":
-                check = (entityCoordinates[1] + 1) < SIZE;
-                if(!check)
-                    System.out.println("You cannot move further right. You are at the edge.\n");
-                break;
-            case "u":
-                check = (entityCoordinates[0] - 1) >= 0;
-                if(!check)
-                    System.out.println("You cannot move further up. You are at the edge.\n");
-                break;
-            case "d":
-                check = (entityCoordinates[0] + 1) < SIZE;
-                if(!check)
-                    System.out.println("You cannot move further down. You are at the edge.\n");
-                break;
-            default:
-                System.out.println("\nPlease choose:"
-                        + "\n'l' for going left,"
-                        + "\n'r' for going right,"
-                        + "\n'u' for going up,"
-                        + "\n'd' for going down."
-                        + "\n");
+    public void displayGrid() {
+        int[][] grid = getGrid();
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
+                int curr = this.grid[y][x];
+                if (curr == 1)
+                    System.out.print("X ");
+                else
+                    System.out.print("O ");
+            }
+            System.out.println("");
         }
-        return check;
     }
 
-    public void displayGrid() {
+    public void displayGridEnd() {
         int[][] grid = getGrid();
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
