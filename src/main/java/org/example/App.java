@@ -18,9 +18,6 @@ public class App {
         Controller c = Controller.getController();
         Map map = new Map(SIZE);
 
-        boolean playerAlive = true;
-        boolean hasWon = false;
-
         c.addEntityToMap(new Player(), map);
         c.addEntityToMap(new Treasure(), map);
         c.addEntityToMap(new Monster(), map);
@@ -30,7 +27,7 @@ public class App {
         Treasure treasure = c.getTreasure();
 
         while (player.isActive() && !player.hasWon()) {
-            map.displayGridEnd();
+            map.displayGrid();
 
             boolean playerHasMoved = false;
             
@@ -40,19 +37,18 @@ public class App {
                 if (c.checkValidMovement(player, direction)) {
                     c.moveEntity(player, map, direction);
                     System.out.println("Treasure is " + c.getDistanceToEntity(player, treasure) + "m away from you.\n");
-                    if (c.landedOn(player, monster) == -1) {
+
+                    if (c.landedOn(player, monster) == -1)
                         player.setActive(false);
-                        playerHasMoved = true;
-                    } else if (c.landedOn(player, treasure) == 1) {
+                    else if (c.landedOn(player, treasure) == 1)
                         player.setHasWon(true);
-                        System.out.println("My G, You have found the treasure in move(s)... SIIUUUUUU!!!\n");
-                        playerHasMoved = true;
-                    }
+
                     playerHasMoved = true;
+                    numOfMoves++;
                 }
             }
 
-            map.displayGridEnd();
+            map.displayGrid();
 
             boolean monsterHasMoved = false;
             
@@ -62,10 +58,10 @@ public class App {
                 if (c.checkValidMovement(monster, direction)) {
                     c.moveEntity(monster, map, direction);
                     System.out.println("Player is " + c.getDistanceToEntity(player, monster) + "m away from you.\n");
-                    if (c.landedOn(player, monster) == -1) {
-                        monsterHasMoved = true;
+
+                    if (c.landedOn(player, monster) == -1)
                         player.setActive(false);
-                    }
+                        
                     monsterHasMoved = true;
                 }
             }
