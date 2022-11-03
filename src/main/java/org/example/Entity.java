@@ -4,6 +4,7 @@ public abstract class Entity {
 
     private String name = null;
     private boolean active = true;
+    private int type = 0;
 
     private int[] coordinates = new int[2];
 
@@ -33,5 +34,13 @@ public abstract class Entity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
+    public int getType() {
+        return this.type;
     }
 }

@@ -86,7 +86,7 @@ public class App {
 
             while (!playerHasMoved) {
                 if (c.checkValidMovement(player, direction)) {
-                    player.movePlayer(direction);
+                    c.moveEntity(player, map, direction);
                     System.out.println("Treasure is " + c.getDistanceToEntity(player, treasure) + "m away from you.\n");
                     if (c.landedOn(player, monster) == -1) {
                         player.setActive(false);
@@ -109,7 +109,7 @@ public class App {
                 if (c.checkValidMovement(monster, direction)) {
                     direction = (s.nextLine()).toLowerCase();
                     s = new Scanner(System.in);
-                    monster.moveMonster(direction);
+                    c.moveEntity(player, map, direction);
                     System.out.println("Player is " + c.getDistanceToEntity(player, monster) + "m away from you.\n");
                     if (c.landedOn(player, monster) == -1) {
                         monsterHasMoved = true;
