@@ -29,7 +29,6 @@ public class Map {
     }
 
     public void displayGrid() {
-        int[][] grid = getGrid();
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 int curr = this.grid[y][x];
@@ -43,7 +42,6 @@ public class Map {
     }
 
     public void displayGridEnd() {
-        int[][] grid = getGrid();
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 int curr = this.grid[y][x];
