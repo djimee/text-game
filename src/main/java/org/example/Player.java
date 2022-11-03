@@ -1,17 +1,19 @@
 package org.example;
 
-public class Player {
-    public int[] playerCoordinates = new int[2];
+public class Player extends Entity {
 
-    public Player(int[] playerCoordinates) {
-        this.playerCoordinates = playerCoordinates;
+    private boolean hasWon = false;
+
+    public Player() {
+        super();
+        setType(1);
+    };
+
+    public boolean hasWon() {
+        return hasWon;
     }
 
-    public int[] getPlayerCoordinates() {
-        return playerCoordinates;
-    }
-
-    public void setPlayerCoordinates(int[] playerCoordinates) {
-        this.playerCoordinates = playerCoordinates;
+    public void setHasWon(boolean hasWon) {
+        this.hasWon = hasWon;
     }
 }

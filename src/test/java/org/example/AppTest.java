@@ -12,7 +12,18 @@ public class AppTest {
 
     @Test
     public void shouldAnswerWithFalse() {
+<<<<<<< HEAD
         assertTrue(true);
     }
 
+=======
+        assertFalse(false);
+    }
+
+    @Test
+    public void shouldAnswerWithFalseToo() {
+        assertFalse(false);
+    }
+    //
+>>>>>>> MVP-3
 }
