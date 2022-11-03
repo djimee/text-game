@@ -11,15 +11,13 @@ public class App {
     public static int numMonsters = 1;
     public static int numPlayers = 1;
     public static int numTreasures = 1;
-    public static int numOfMoves = 0;
+
+    public static int playerNumMoves, monsterNumMoves;
 
     public static void main( String[] args ) {
         Scanner s = new Scanner(System.in);
         Controller c = Controller.getController();
         Map map = new Map(SIZE);
-
-        boolean playerAlive = true;
-        boolean hasWon = false;
 
         c.addEntityToMap(new Player(), map);
         c.addEntityToMap(new Treasure(), map);
@@ -28,6 +26,8 @@ public class App {
         Player player = c.getPlayer();
         Monster monster = c.getMonster();
         Treasure treasure = c.getTreasure();
+
+        double treasureLastDist, playerLastDist;
 
         while (player.isActive() && !player.hasWon()) {
             map.displayGridEnd();
@@ -39,14 +39,15 @@ public class App {
                 String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(player, direction)) {
                     c.moveEntity(player, map, direction);
-                    System.out.println("Treasure is " + c.getDistanceToEntity(player, treasure) + "m away from you.\n");
+                    playerNumMoves++;
+                    treasureLastDist = c.getDistanceToEntity(player, treasure);
+                    System.out.println("Treasure is " + treasureLastDist + "m away from you.\n");
                     if (c.landedOn(player, monster) == -1) {
                         player.setActive(false);
-                        playerHasMoved = true;
                     } else if (c.landedOn(player, treasure) == 1) {
                         player.setHasWon(true);
-                        System.out.println("My G, You have found the treasure in move(s)... SIIUUUUUU!!!\n");
-                        playerHasMoved = true;
+                        System.out.println("My G, You have found the treasure in " + playerNumMoves +
+                                " move(s)... SIIUUUUUU!!!\n");
                     }
                     playerHasMoved = true;
                 }
@@ -61,7 +62,8 @@ public class App {
                 String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(monster, direction)) {
                     c.moveEntity(monster, map, direction);
-                    System.out.println("Player is " + c.getDistanceToEntity(player, monster) + "m away from you.\n");
+                    playerLastDist = c.getDistanceToEntity(player, monster);
+                    System.out.println("Player is " + playerLastDist + "m away from you.\n");
                     if (c.landedOn(player, monster) == -1) {
                         monsterHasMoved = true;
                         player.setActive(false);
@@ -71,49 +73,11 @@ public class App {
             }
         }
 
-        if(player.hasWon())
-           System.out.println("My G, You have found the treasure in " + numOfMoves + " move(s)... SIIUUUUUU!!!\n");
+        if (player.hasWon())
+           System.out.println("My G, You have found the treasure in " + playerNumMoves + " move(s)... SIIUUUUUU!!!\n");
         else
            System.out.println("My G, DEATH AWAITS YE!!!\n");
 
         map.displayGridEnd();
     }
 }
-
-
-
-//        while (playerAlive && !hasWon) {
-////            map.displayGrid(false);
-//            System.out.println("Please enter the direction 'l r u d': ");
-//            String direction = (s.nextLine()).toLowerCase();
-//            s = new Scanner(System.in);
-//
-//            if (player.checkValidMovement(direction)) {
-//                map.movePlayer(direction);
-//                System.out.println("Treasure is " + map.getDistanceToTreasure() + "m away from you.\n");
-//                for(Monster m : monster) {
-//                    if(landedOnMonster(m, map)) {
-//                        playerAlive = false;
-//                        break;
-//                    }
-//                }
-//                hasWon = map.isTreasureFound();
-//            }
-//            numOfMoves++;
-//        }
-//
-//        if(hasWon) {
-//            map.displayGrid(true);
-//            System.out.println("My G, You have found the treasure in " + numOfMoves + " move(s)... SIIUUUUUU!!!\n");
-//            map.displayGrid(monster);
-//        }
-//
-//        else {
-//            map.displayGrid(false);
-//            System.out.println("My G, DEATH AWAITS YE!!!\n");
-//            map.displayGrid(monster);
-//        }
-//
-//        System.out.println("\nM - monster"
-//                + "\nW - win"
-//        );
