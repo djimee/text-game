@@ -117,10 +117,10 @@ public class Controller {
     }
 
     
-    public static int landedOn(Player p, Entity e) {
+    public int landedOn(Player p, Entity e) {
         int[] entityCoordinates = e.getCoordinates();
         int[] playerCoordinates =  p.getCoordinates();
-        if (entityCoordinates[0] == playerCoordinates[0] && entityCoordinates[1] == entityCoordinates[1]) {
+        if (entityCoordinates[0] == playerCoordinates[0] && entityCoordinates[1] == playerCoordinates[1]) {
             return e.getType();
         }
         return 0;
@@ -159,7 +159,7 @@ public class Controller {
                 entityCoordinateY += 1;
                 break;
         }
-
         mapGrid[entityCoordinateY][entityCoordinateX] = e.getType();
+        m.setGrid(mapGrid);
     }
 }

@@ -30,7 +30,7 @@ public class App {
         Treasure treasure = c.getTreasure();
 
         while (player.isActive() && !player.hasWon()) {
-            map.displayGrid();
+            map.displayGridEnd();
 
             boolean playerHasMoved = false;
             System.out.println("Player please enter the direction 'l r u d': ");
@@ -52,7 +52,7 @@ public class App {
                 }
             }
 
-            map.displayGrid();
+            map.displayGridEnd();
 
             boolean monsterHasMoved = false;
             System.out.println("Monster please enter the direction 'l r u d': ");
@@ -60,7 +60,7 @@ public class App {
             while (!monsterHasMoved) {
                 String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(monster, direction)) {
-                    c.moveEntity(player, map, direction);
+                    c.moveEntity(monster, map, direction);
                     System.out.println("Player is " + c.getDistanceToEntity(player, monster) + "m away from you.\n");
                     if (c.landedOn(player, monster) == -1) {
                         monsterHasMoved = true;
@@ -70,7 +70,7 @@ public class App {
                 }
             }
         }
-        map.displayGridEnd();
+        // map.displayGridEnd();
     }
 }
 
