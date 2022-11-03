@@ -92,14 +92,6 @@ public class Map {
             System.out.println("");
         }
     }
-    public boolean checkMonster(Monster[] monster, int y, int x) {
-        for(Monster m : monster) {
-            int[] temp = m.getCoordinates();
-            if(y == temp[0] && x == temp[1])
-                return true;
-        }
-        return false;
-    }
 }
 
 //    public void displayGrid(Player players, boolean treasure) {
