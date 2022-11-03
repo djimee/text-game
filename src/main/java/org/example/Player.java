@@ -5,13 +5,7 @@ public class Player extends Entity {
     boolean active = true;
     int number;
 
-    public Player(int number) {
-        this.number = number;
-    }
-
-    public int getNumber() {
-        return number;
-    }
+    public Player() {};
 
     public void movePlayer(String direction) {
         int[] playerCoordinates = getCoordinates();

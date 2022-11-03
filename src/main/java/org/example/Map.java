@@ -38,28 +38,28 @@ public class Map {
         setGrid(grid);
     }
 
-    public boolean checkValidMovement(Player player, String direction) {
+    public boolean checkValidMovement(Entity entity, String direction) {
         boolean check = false;
-        int[] playerCoordinates = player.getCoordinates();
+        int[] entityCoordinates = entity.getCoordinates();
 
         switch(direction) {
             case "l":
-                check = (playerCoordinates[1] - 1) >= 0;
+                check = (entityCoordinates[1] - 1) >= 0;
                 if(!check)
                     System.out.println("You cannot move further left. You are at the edge.\n");
                 break;
             case "r":
-                check = (playerCoordinates[1] + 1) < SIZE;
+                check = (entityCoordinates[1] + 1) < SIZE;
                 if(!check)
                     System.out.println("You cannot move further right. You are at the edge.\n");
                 break;
             case "u":
-                check = (playerCoordinates[0] - 1) >= 0;
+                check = (entityCoordinates[0] - 1) >= 0;
                 if(!check)
                     System.out.println("You cannot move further up. You are at the edge.\n");
                 break;
             case "d":
-                check = (playerCoordinates[0] + 1) < SIZE;
+                check = (entityCoordinates[0] + 1) < SIZE;
                 if(!check)
                     System.out.println("You cannot move further down. You are at the edge.\n");
                 break;
@@ -79,13 +79,17 @@ public class Map {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 int curr = this.grid[y][x];
+                // empty space
                 if (curr == 0) {
                     System.out.print("O ");
+                // player
                 } else if (curr == 1) {
                     System.out.print("X ");
                 } else if (curr == 2) {
+                // treasure
                     System.out.print("T ");
                 } else if (curr == -1) {
+                // monster
                     System.out.print("M ");
                 }
             }
