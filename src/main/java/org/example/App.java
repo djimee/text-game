@@ -70,7 +70,13 @@ public class App {
                 }
             }
         }
-        // map.displayGridEnd();
+
+        if(player.hasWon())
+           System.out.println("My G, You have found the treasure in " + numOfMoves + " move(s)... SIIUUUUUU!!!\n");
+        else
+           System.out.println("My G, DEATH AWAITS YE!!!\n");
+
+        map.displayGridEnd();
     }
 }
 
