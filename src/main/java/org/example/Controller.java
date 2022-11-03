@@ -161,5 +161,6 @@ public class Controller {
         }
         mapGrid[entityCoordinateY][entityCoordinateX] = e.getType();
         m.setGrid(mapGrid);
+        e.setCoordinates(new int[] {entityCoordinateY, entityCoordinateX});
     }
 }

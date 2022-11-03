@@ -33,9 +33,9 @@ public class App {
             map.displayGridEnd();
 
             boolean playerHasMoved = false;
-            System.out.println("Player please enter the direction 'l r u d': ");
-
+            
             while (!playerHasMoved) {
+                System.out.println("Player please enter the direction 'l r u d': ");
                 String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(player, direction)) {
                     c.moveEntity(player, map, direction);
@@ -55,9 +55,9 @@ public class App {
             map.displayGridEnd();
 
             boolean monsterHasMoved = false;
-            System.out.println("Monster please enter the direction 'l r u d': ");
-
+            
             while (!monsterHasMoved) {
+                System.out.println("Monster please enter the direction 'l r u d': ");
                 String direction = (s.nextLine()).toLowerCase();
                 if (c.checkValidMovement(monster, direction)) {
                     c.moveEntity(monster, map, direction);
