@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  */
 public class App {
-    public static int SIZE = 5;
+    public static int SIZE = 3;
     public static int numMonsters = 1;
     public static int numPlayers = 1;
     public static int numTreasures = 1;
@@ -54,12 +54,13 @@ public class App {
                     playerNumMoves++;
 
                     System.out.println("\n===========================================================");
-
-                    if (c.landedOn(player, monster) == -1) {
-                        player.setActive(false);
-                    } else if (c.landedOn(player, treasure) == 2) {
+                    
+                    if (c.landedOn(player, treasure) == 2) {
                         player.setHasWon(true);
                     }
+                    else if (c.landedOn(player, monster) == -1) {
+                        player.setActive(false);
+                    } 
 
                     playerHasMoved = true;
                 }
@@ -68,10 +69,12 @@ public class App {
             if (player.hasWon()) {
                 System.out.println("My G, You have found the treasure in " +
                         playerNumMoves + " move(s)... SIIUUUUUU!!!\n");
+                map.displayGridWin();
                 break;
             } else if (!player.isActive()) {
                 System.out.println("MY G, DEATH AWAITS YE!!! YOU HAVE BEEN FOUND IN " + 
                         monsterNumMoves + " MOVE(S)!!!\n");
+                map.displayGridLose();
                 break;
             }
 
@@ -102,10 +105,9 @@ public class App {
 
             if (!player.isActive()) {
                 System.out.println("MY G, DEATH AWAITS YE!!! YOU HAVE BEEN FOUND IN " + monsterNumMoves + " MOVE(S)!!!\n");
+                map.displayGridLose();
                 break;
             }
         }
-
-        map.displayGridEnd();
     }
 }

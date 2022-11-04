@@ -138,10 +138,10 @@ public class Controller {
     public void moveEntity(Entity e, Map m, String direction) {
         int entityCoordinateY = e.getCoordinates()[0];
         int entityCoordinateX = e.getCoordinates()[1];
-
         int[][] mapGrid = m.getGrid();
 
-        mapGrid[entityCoordinateY][entityCoordinateX] = 0;
+        if (!(mapGrid[entityCoordinateY][entityCoordinateX] == 2))
+            mapGrid[entityCoordinateY][entityCoordinateX] = 0;
 
         switch(direction) {
             case "l":
@@ -158,7 +158,10 @@ public class Controller {
                 entityCoordinateY += 1;
                 break;
         }
-        mapGrid[entityCoordinateY][entityCoordinateX] = e.getType();
+
+        if (!(mapGrid[entityCoordinateY][entityCoordinateX] == 2))
+            mapGrid[entityCoordinateY][entityCoordinateX] = e.getType();
+
         m.setGrid(mapGrid);
         e.setCoordinates(new int[] {entityCoordinateY, entityCoordinateX});
     }
