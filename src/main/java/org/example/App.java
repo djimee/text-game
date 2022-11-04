@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  */
 public class App {
-    public static int SIZE = 3;
+    public static int SIZE = 5;
     public static int numMonsters = 1;
     public static int numPlayers = 1;
     public static int numTreasures = 1;
