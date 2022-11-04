@@ -109,5 +109,11 @@ public class App {
                 break;
             }
         }
+
+        System.out.println("\nT - treasure"
+                + "\nX - Player"
+                + "\nD - Death by monster"
+                + "\nW - Win!"
+        );
     }
 }

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.text.DecimalFormat;
+
 public class Controller {
 
     private int treauresAdded = 0;
@@ -125,6 +127,7 @@ public class Controller {
         return 0;
     }
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     /**
      * Gets displacement to the treasure
      * @returns double type displacement
@@ -132,7 +135,8 @@ public class Controller {
     public double getDistanceToEntity(Player p, Entity t) {
         int y = p.getCoordinates()[0] - t.getCoordinates()[0];
         int x = p.getCoordinates()[1] - t.getCoordinates()[1];
-        return Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)));
+        return Double.valueOf(df.format( Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)))));
+        
     }
 
     public void moveEntity(Entity e, Map m, String direction) {
